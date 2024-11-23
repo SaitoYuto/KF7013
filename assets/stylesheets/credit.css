@@ -1,0 +1,38 @@
+#credit-imgs {
+  display: grid;
+  gap: 15px 15px;
+  grid-template-columns: 280px 280px 280px 280px;
+}
+
+.credit-img-card {
+  height: 14.5rem;
+  padding: 5px;
+  text-align: center;
+  color: #000000;
+  border: 1px solid #e7e4db;
+  border-radius: 12px;
+  background-color: #f9f8f6;
+}
+
+.credit-img-card > img {
+  max-width: 30%;
+  max-height: 30%;
+  min-width: 18%;
+  min-height: 30%;
+}
+
+.credit-img-card > p {
+  margin: 5px 0px;
+  border-top: 1px solid #d3d3d3;
+  font-weight: bold;
+}
+
+.credit-img-card > a {
+  overflow-wrap: break-word;
+  text-decoration: underline;
+}
+
+.credit-img-card:hover {
+  transition: box-shadow 0.5s ease;
+  box-shadow: 1px 1px 1px 1px #d3d3d3;
+}

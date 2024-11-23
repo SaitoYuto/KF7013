@@ -1,0 +1,73 @@
+#tab-menu {
+  display: flex;
+  flex-wrap: wrap;
+  width: 35vw;
+}
+
+#tab-menu > input {
+  display: none;
+}
+
+.tab-menu-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  order: -1;
+  height: 50px;
+  cursor: pointer;
+  border-bottom: 2px solid #d9cece;
+  font-weight: bold;
+}
+
+#tab-menu > input:checked + .tab-menu-item {
+  color: #000000;
+  border-color: #000000;
+}
+
+.tab-menu-contents {
+  display: none;
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+}
+
+#tab-menu > input:checked + .tab-menu-item + .tab-menu-contents {
+  display: block;
+}
+
+form {
+  margin: 0 auto;
+  padding: 20px 20px 5px 20px;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-row > label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-row > input {
+  padding: 8px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+}
+
+form > .error {
+  color: #ff0000;
+  text-align: center;
+  font-weight: bold;
+}
+
+form > .base-btn {
+  margin-top: 20px;
+  width: 100%;
+}

@@ -1,0 +1,67 @@
+#learn-img {
+  background-image: url("../images/main-learn.png");
+}
+
+#online-img {
+  background-image: url("../images/main-online.png");
+}
+
+.main-img {
+  position: relative;
+  width: 580px;
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.main-img > h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-left: 20px;
+  font-size: 25px;
+  animation: fadeInUp 1.3s ease 4s forwards;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+#topic-wrapper {
+  display: grid;
+  gap: 40px 40px;
+  grid-template-columns: 200px 200px 200px 200px;
+  justify-content: center;
+}
+
+.topic-card {
+  width: 10rem;
+  padding: 20px;
+  text-align: center;
+  color: #000000;
+  border: 1px solid #e7e4db;
+  border-radius: 12px;
+  background-color: #f9f8f6;
+}
+
+.topic-card:hover {
+  transition: box-shadow 0.5s ease;
+  box-shadow: 1px 1px 1px 1px #d3d3d3;
+}
+
+.topic-card > p {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
