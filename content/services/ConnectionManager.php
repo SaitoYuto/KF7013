@@ -39,10 +39,10 @@ class ConnectionManager
      */
     public static function getInstance()
     {
-        if (self::$instance === null) {
-            self::$instance = new ConnectionManager();
+        if (!isset(self::$instance)) {
+            static::$instance = new ConnectionManager();
         }
-        return self::$instance;
+        return static::$instance;
     }
 
     /**
