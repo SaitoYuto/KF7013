@@ -10,11 +10,34 @@ include './services/ConnectionManager.php';
  */
 class Customer
 {
+    /**
+     * The column for the customer ID.
+     */
     public const COL_CUSTOMER_ID = 'customerID';
+
+    /**
+     * The column for storing the customer's password hash.
+     */
     public const COL_PASSWORD_HASH = 'password_hash';
+
+    /**
+     * The column for the customer's first name.
+     */
     public const COL_FORENAME = 'customer_forename';
+
+    /**
+     * The column for the customer's last name.
+     */
     public const COL_SURNAME = 'customer_surname';
+
+    /**
+     * The column for the customer's email address.
+     */
     public const COL_EMAIL = 'customer_email';
+
+    /**
+     * The column for the customer's date of birth.
+     */
     public const COL_DOB = 'date_of_birth';
 
     /**
@@ -156,16 +179,6 @@ class Customer
     }
 
     /**
-     * Set customer's email address.
-     *
-     * @param string $email Customer's email address.
-     */
-    private function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
      * Set the date of birth.
      *
      * @param string $dob customer's date of birth.
@@ -206,7 +219,7 @@ class Customer
             }
             $stmt = mysqli_prepare(
                 $conn,
-                "SELECT customerID AS total FROM customers WHERE customer_email = ?"
+                "SELECT customerID FROM customers WHERE customer_email = ?"
             );
             if (!$stmt) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));

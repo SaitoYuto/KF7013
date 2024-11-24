@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     rel="stylesheet"
     type="text/css" />
   <link
-    href="../assets/stylesheets/login.css"
+    href="../assets/stylesheets/auth.css"
     rel="stylesheet"
     type="text/css" />
 </head>
