@@ -9,7 +9,11 @@ CREATE TABLE `training_sessions` (
   `description` TEXT NOT NULL,
   `session_date` DATETIME NOT NULL,
   `price_per_person` DECIMAL(7,2) NOT NULL,
-  `session_imagepath` VARCHAR(255)
+  `discount_price` DECIMAL(7,2),
+  `session_imagepath` VARCHAR(255),
+  `image_alt` VARCHAR(255),
+  `lecturer` VARCHAR(255),
+  `category` VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

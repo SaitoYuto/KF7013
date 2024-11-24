@@ -296,7 +296,7 @@
       </div>
       <div class="credit-img-card">
         <img
-          src="../assets/images/course_machine_learning_.png"
+          src="../assets/images/course_machine_learning.png"
           alt="Machine Learning Course Thumbnail" />
         <p>Available at:</p>
         <a

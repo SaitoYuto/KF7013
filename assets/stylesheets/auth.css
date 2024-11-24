@@ -61,12 +61,6 @@ form {
   border-radius: 10px;
 }
 
-form > .error {
-  color: #ff0000;
-  text-align: center;
-  font-weight: bold;
-}
-
 form > .base-btn {
   margin-top: 20px;
   width: 100%;

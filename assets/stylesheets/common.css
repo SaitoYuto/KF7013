@@ -281,3 +281,9 @@ footer > div:first-child > ul {
   color: #000000;
   background-color: #ffffff;
 }
+
+.error {
+  color: #ff0000;
+  text-align: center;
+  font-weight: bold;
+}
