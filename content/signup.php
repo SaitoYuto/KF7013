@@ -37,9 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('signup', $_POST))
   $alertSelector = 'error';
   $message = Message::INVALID_REQUEST;
 }
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

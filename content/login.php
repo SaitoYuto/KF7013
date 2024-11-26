@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-include './logic/Customer.php';
 include './constants/Message.php';
+include './logic/Customer.php';
 
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
-
 if ($isLogin) {
   // Not allowed display login page by already login user
   header('Location: index.php');

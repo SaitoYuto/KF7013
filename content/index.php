@@ -1,9 +1,8 @@
 <?php
 session_start();
-
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

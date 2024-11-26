@@ -5,6 +5,7 @@ require_once './logic/CoursesManager.php';
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
 $courseId = $_GET['courseId'];
 if (!$courseId) {
+  // Not allowed display detail page without GET parameter.
   header('Location: courses.php');
 }
 $coursesManager = CoursesManager::getInstance();

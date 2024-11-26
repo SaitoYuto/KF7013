@@ -33,6 +33,9 @@ class CoursesManager
         return static::$instance;
     }
 
+    /**
+     * Load courses from Database.
+     */
     private function load()
     {
         $conn = null;
