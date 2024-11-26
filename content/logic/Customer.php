@@ -1,6 +1,6 @@
 <?php
 
-include './services/ConnectionManager.php';
+include './logic/ConnectionManager.php';
 
 
 /**
@@ -92,14 +92,16 @@ class Customer
     /**
      * Constructor.
      * 
+     * @param string $forename Customer's id.
      * @param string $forename Customer's forename.
      * @param string $forename Customer's surname.
      * @param string $forename Customer's email.
      * @param string $forename Customer's password.
      * @param string $forename Customer's date of birth.
      */
-    function __construct($forename, $surname, $email, $rawPassword, $dob)
+    function __construct($id, $forename, $surname, $email, $rawPassword, $dob)
     {
+        $this->id = $id;
         $this->forename = $forename;
         $this->surname = $surname;
         $this->email = $email;
@@ -117,9 +119,44 @@ class Customer
         return $this->id;
     }
 
+    /**
+     * Get customer's forename
+     * 
+     * @return string Customer's forename.
+     */
     public function getForename()
     {
         return $this->forename;
+    }
+
+    /**
+     * Get customer's surname.
+     * 
+     * @return string Customer's surname.
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * Get customer's email.
+     * 
+     * @return string Customer's email.
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get customer's date of birth.
+     * 
+     * @return string Customer's date of birth.
+     */
+    public function getDob()
+    {
+        return $this->dob;
     }
 
     /**
@@ -135,6 +172,7 @@ class Customer
         $this->setPasswordHash($customer[self::COL_PASSWORD_HASH]);
         $this->setForename($customer[self::COL_FORENAME]);
         $this->setSurname($customer[self::COL_SURNAME]);
+        $this->setEmail($customer[self::COL_EMAIL]);
         $this->setDob($customer[self::COL_DOB]);
     }
 
@@ -176,6 +214,16 @@ class Customer
     private function setSurname($surname)
     {
         $this->surname = $surname;
+    }
+
+    /**
+     * Set customer's email.
+     *
+     * @param string $email Customer's email.
+     */
+    private function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     /**
@@ -308,7 +356,7 @@ class Customer
             }
             $stmt = mysqli_prepare(
                 $conn,
-                "SELECT customerID, password_hash, customer_forename, customer_surname, date_of_birth 
+                "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth 
             FROM customers 
             WHERE customer_email = ? LIMIT 1"
             );
@@ -316,6 +364,49 @@ class Customer
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
             }
             if (!mysqli_stmt_bind_param($stmt, "s", $this->email)) {
+                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
+            }
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
+            }
+            $result = mysqli_stmt_get_result($stmt);
+            if (!$result) {
+                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
+            }
+            if ($customer = mysqli_fetch_assoc($result)) {
+                $this->setCustomer($customer);
+            }
+        } finally {
+            $conn = null;
+            $stmt = null;
+        }
+    }
+
+    /**
+     * Load customer data by id into memory.
+     * 
+     * @return void
+     * @throws Exception
+     */
+    public function loadCustomerById()
+    {
+        $conn = null;
+        $stmt = null;
+        try {
+            $conn = ConnectionManager::getInstance()->getConnection();
+            if (!$conn) {
+                throw new Exception(Message::DB_CONNECTION_FAIL);
+            }
+            $stmt = mysqli_prepare(
+                $conn,
+                "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth 
+            FROM customers 
+            WHERE customerID = ? LIMIT 1"
+            );
+            if (!$stmt) {
+                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
+            }
+            if (!mysqli_stmt_bind_param($stmt, "s", $this->id)) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
             if (!mysqli_stmt_execute($stmt)) {

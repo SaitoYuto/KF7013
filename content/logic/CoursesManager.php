@@ -1,6 +1,6 @@
 <?php
 
-include './services/ConnectionManager.php';
+include './logic/ConnectionManager.php';
 
 /**
  * Courses data management class.
@@ -61,6 +61,22 @@ class CoursesManager
             $conn = null;
             $stmt = null;
         }
+    }
+
+    /**
+     * Get courses by id.
+     * 
+     * @return array Courses.
+     */
+    public function getCoursesById($id)
+    {
+        $array = [];
+        foreach ($this->courses as $course) {
+            if ($course['trainingID'] === $id) {
+                array_push($array, $course);
+            }
+        }
+        return $array;
     }
 
     /**

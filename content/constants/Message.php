@@ -12,6 +12,8 @@ class Message
     const SQL_EXEC_FAIL = "Failed to execute SQL statement: ";
     const LOGIN_FAILURE = "The email address or password you provided may be incorrect.";
     const SIGNUP_FAILURE = "Sign-up failed. Please try again later.";
+    const SIGNUP_SUCCESS = "Sign-up succeeded. Please login now.";
     const INVALID_REQUEST = "Client Invalid Request.";
     const INTERNAL_SERVER_ERROR = "Internal Server Error.";
+    const AFTER_SIGNUP = "After signing up successfully, automatically redirect to the login page.";
 }

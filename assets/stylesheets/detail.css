@@ -1,0 +1,81 @@
+#course-wrapper > div {
+  width: 90%;
+  margin: 0 auto 30px auto;
+}
+
+#course-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px 20px;
+  border: 1px solid #0000001a;
+  box-shadow: 0 8px 16px #0000001a;
+}
+
+#course-detail img {
+  width: auto;
+  max-width: 400px;
+  height: auto;
+  max-height: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px #0000001a;
+  object-fit: cover;
+}
+
+#course-main {
+  display: flex;
+  flex-direction: column;
+  margin-right: 25px;
+}
+
+#course-main > h3 {
+  margin: 5px 0;
+}
+
+#course-main > h4 {
+  margin: 15px 0 5px 0;
+}
+
+#course-main > p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#course-main > a {
+  margin-top: auto;
+}
+
+#course-info-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.course-info-card {
+  width: 20%;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #0000001a;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+.course-info-card > p {
+  margin-bottom: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999999;
+  font-size: 0.9em;
+}
+
+.discount-price {
+  color: #e63946;
+  font-weight: bold;
+  font-size: 1.1em;
+}

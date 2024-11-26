@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+$isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,15 +25,15 @@
 
 <body>
   <?php require_once 'shared.php';
-  echo stringifyHeaderHtml();
+  echo stringifyHeaderHtml($isLogin);
   ?>
   <div class="main-wrapper">
     <?php require_once 'shared.php';
-    echo stringifySidebarHtml();
+    echo stringifySidebarHtml($isLogin);
     ?>
     <main>
       <h1>Level up your skills with the highest quality courses</h1>
-      <div class="flex-row-center">
+      <div id="main-imgs" class="flex-row-center">
         <div id="learn-img" class="main-img">
           <h3>Cutting-edge courses by certificated instructor</h3>
         </div>
