@@ -1,7 +1,6 @@
 <?php
 
-include './logic/ConnectionManager.php';
-
+require_once './logic/ConnectionManager.php';
 
 /**
  * Customer service class.
@@ -88,6 +87,13 @@ class Customer
      * @var string|null
      */
     private $dob;
+
+    /**
+     * A list of whitelisted column names for use in dynamic SQL queries.
+     * 
+     * @var array
+     */
+    const WHITE_LIST = [self::COL_CUSTOMER_ID, self::COL_EMAIL];
 
     /**
      * Constructor.
@@ -223,6 +229,9 @@ class Customer
      */
     private function setEmail($email)
     {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception(Message::INVALID_EMAIL_FORMAT);
+        }
         $this->email = $email;
     }
 
@@ -283,7 +292,7 @@ class Customer
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
             if (mysqli_num_rows($result) > 0) {
-                throw new Exception("An account with this email address already exists.");
+                throw new Exception(Message::DUPLICATE_EMAIL);
             } else {
                 return false;
             }
@@ -344,9 +353,12 @@ class Customer
     public function loadCustomerById()
     {
         if (!$this->id) {
-            throw new Exception("Customer ID is required");
+            throw new Exception(Message::REQUIRED_CUSTOMER_ID);
         }
-        $this->loadCustomerByField("customerID", $this->id);
+        $sql = "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth
+        FROM customers
+        WHERE customerID = ? LIMIT 1";
+        $this->loadCustomerByField($sql, $this->id);
     }
 
     /**
@@ -355,18 +367,21 @@ class Customer
     public function loadCustomerByEmail()
     {
         if (!$this->email) {
-            throw new Exception("Email is required");
+            throw new Exception(Message::REQUIRED_EMAIL);
         }
-        $this->loadCustomerByField("customer_email", $this->email);
+        $sql = "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth
+        FROM customers
+        WHERE customer_email = ? LIMIT 1";
+        $this->loadCustomerByField($sql, $this->email);
     }
 
     /**
      * Load customer date by specific field.
      * 
-     * @param string $field Field name. 
+     * @param string $sql SQL. 
      * @param string $value Value.
      */
-    private function loadCustomerByField($field, $value)
+    private function loadCustomerByField($sql, $value)
     {
         $conn = null;
         $stmt = null;
@@ -375,13 +390,8 @@ class Customer
             if (!$conn) {
                 throw new Exception(Message::DB_CONNECTION_FAIL);
             }
-            $stmt = mysqli_prepare(
-                $conn,
-                "SELECT customerID, password_hash, customer_forename, customer_surname, 
-                            customer_email, date_of_birth 
-                FROM customers 
-                WHERE " . $field . " = ? LIMIT 1"
-            );
+
+            $stmt = mysqli_prepare($conn, $sql);
             if (!$stmt) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
             }

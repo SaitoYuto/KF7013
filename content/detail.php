@@ -1,11 +1,14 @@
 <?php
 session_start();
+
+require_once './constants/Message.php';
 require_once './logic/CoursesManager.php';
+
 
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
 $courseId = filter_input(INPUT_GET, 'courseId', FILTER_VALIDATE_INT);
 if ($courseId === false || $courseId === null) {
-  http_response_code(400); // Bad Request
+  http_response_code(400);
   header('Location: courses.php?error=invalid_course_id');
   exit();
 }
@@ -23,7 +26,7 @@ foreach ($coursesManager->getCoursesById(intval($courseId)) as $course) {
   $lecturer = $course['lecturer'];
 }
 if (!$course) {
-  header('Location courses.php?error=not_found_course');
+  header('Location: courses.php?error=not_found_course');
   exit();
 }
 ?>
@@ -72,15 +75,15 @@ if (!$course) {
               <a href="./signup.php" class="base-link">Register Now</a>
             <?php endif; ?>
           </div>
-          +<?php
-            $imagePath = htmlspecialchars("../assets/images/" . $imagePath);
-            $imageAlt = htmlspecialchars($imageAlt);
-            if (file_exists($imagePath)) {
-              echo "<img src='{$imagePath}' alt='{$imageAlt}'>";
-            } else {
-              echo "<img src='../assets/images/default.png' alt='Default course image'>";
-            }
-            ?>
+          <?php
+          $imagePath = htmlspecialchars("../assets/images/" . $imagePath);
+          $imageAlt = htmlspecialchars($imageAlt);
+          if (file_exists($imagePath)) {
+            echo "<img src='{$imagePath}' alt='{$imageAlt}'>";
+          } else {
+            echo "<img src='../assets/images/default.png' alt='Default course image'>";
+          }
+          ?>
         </div>
         <div id="course-info-cards">
           <div class="course-info-card">

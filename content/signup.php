@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include './constants/Message.php';
-include './logic/Customer.php';
+require_once './constants/Message.php';
+require_once './logic/Customer.php';
 
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
 

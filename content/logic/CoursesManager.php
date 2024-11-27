@@ -1,6 +1,6 @@
 <?php
 
-include './logic/ConnectionManager.php';
+require_once './logic/ConnectionManager.php';
 
 /**
  * Courses data management class.

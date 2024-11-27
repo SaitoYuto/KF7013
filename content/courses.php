@@ -1,6 +1,18 @@
 <?php
 session_start();
+
+require_once './util/RequestUtil.php';
+
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
+$error = filter_input(INPUT_GET, 'error');
+if ($error) {
+  $alertSelector =  'error';
+  $message = RequestUtil::getErrorMessageByParam($error);
+} else {
+  $alertSelector = '';
+  $message = '';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +40,9 @@ $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
     echo stringifySidebarHtml($isLogin);
     ?>
     <main>
+      <?php require_once 'shared.php';
+      echo stringifyAlertHtml($alertSelector, $message);
+      ?>
       <h2 id="recommendation">Recommendation to You</h2>
       <div class="courses-wrapper">
         <?php

@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-include './constants/Message.php';
-include './logic/Customer.php';
+require_once './constants/Message.php';
+require_once './logic/Customer.php';
+require_once './util/RequestUtil.php';
 
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
 if ($isLogin) {
@@ -31,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('login', $_POST)) 
     http_response_code(500);
   }
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-  $alertSelector = "";
-  $message = "";
+  $alertSelector = array_key_exists('error', $_GET) ? 'error' : "";
+  $message = array_key_exists('error', $_GET) ? RequestUtil::getErrorMessageByParam($_GET['error']) : "";
 } else {
   $alertSelector = 'error';
   $message = Message::INVALID_REQUEST;

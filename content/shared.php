@@ -1,6 +1,6 @@
 <?php
 
-
+require_once './constants/Message.php';
 
 /**
  * Stringify header HTML.
@@ -235,8 +235,8 @@ function stringifyFooterHtml()
 function stringifyAlertHtml($classSelector, $message)
 {
     $ALERT_TYPES = [
-        'info' => Message::INFO_TITLE,
-        'error' => Message::ERROR_TITLE
+        'info' => Message::TITLE_INFO,
+        'error' => Message::TITLE_ERROR
     ];
     if (!isset($ALERT_TYPES[$classSelector])) {
         return "";
@@ -244,7 +244,7 @@ function stringifyAlertHtml($classSelector, $message)
     $title = $ALERT_TYPES[$classSelector];
     $escapedMessage =  htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
     return <<< Alert
-        <div id="alert-card" class="$classSelector">
+        <div id="alert-card" class="$classSelector" role="alert">
             <div id="alert-content">
             <h3>$title</h3>
             <p>$escapedMessage</p>
