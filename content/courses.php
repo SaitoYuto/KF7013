@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+require_once './util/RequestUtil.php';
+
+$isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
+$error = filter_input(INPUT_GET, 'error');
+if ($error) {
+  $alertSelector =  'error';
+  $message = RequestUtil::getErrorMessageByParam($error);
+} else {
+  $alertSelector = '';
+  $message = '';
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,18 +33,21 @@
 
 <body>
   <?php require_once 'shared.php';
-  echo stringifyHeaderHtml();
+  echo stringifyHeaderHtml($isLogin);
   ?>
   <div class="main-wrapper">
     <?php require_once 'shared.php';
-    echo stringifySidebarHtml();
+    echo stringifySidebarHtml($isLogin);
     ?>
     <main>
+      <?php require_once 'shared.php';
+      echo stringifyAlertHtml($alertSelector, $message);
+      ?>
       <h2 id="recommendation">Recommendation to You</h2>
       <div class="courses-wrapper">
         <?php
         try {
-          require_once './services/CoursesManager.php';
+          require_once './logic/CoursesManager.php';
           $coursesManager = CoursesManager::getInstance();
           foreach ($coursesManager->getCoursesByCategory("Recommendation") as $recommendation) {
             $priceTag
@@ -44,6 +63,7 @@
                 <p class="course-name">{$recommendation['title']}</p>
                 <p class="course-provider">By {$recommendation['lecturer']}</p>
                 $priceTag
+                <a class="base-link" href="./detail.php?courseId={$recommendation['trainingID']}">More Detail</a>
             </div>
             HTML;
           }
@@ -57,7 +77,7 @@
       <div class="courses-wrapper">
         <?php
         try {
-          require_once './services/CoursesManager.php';
+          require_once './logic/CoursesManager.php';
           $coursesManager = CoursesManager::getInstance();
           foreach ($coursesManager->getCoursesByCategory("New") as $new) {
             $priceTag
@@ -72,7 +92,8 @@
                     alt="{$new['image_alt']}" />
                 <p class="course-name">{$new['title']}</p>
                 <p class="course-provider">By {$new['lecturer']}</p>
-                $priceTag        
+                $priceTag
+                <a class="base-link" href="./detail.php?courseId={$new['trainingID']}">More Detail</a>
             </div>
             HTML;
           }
@@ -86,7 +107,7 @@
       <div class="courses-wrapper">
         <?php
         try {
-          require_once './services/CoursesManager.php';
+          require_once './logic/CoursesManager.php';
           $coursesManager = CoursesManager::getInstance();
           foreach ($coursesManager->getCoursesByCategory("Enrolled") as $enrolled) {
             $priceTag
@@ -102,6 +123,7 @@
                 <p class="course-name">{$enrolled['title']}</p>
                 <p class="course-provider">By {$enrolled['lecturer']}</p>
                 $priceTag
+                <a class="base-link" href="./detail.php?courseId={$enrolled['trainingID']}">More Detail</a>
             </div>
             HTML;
           }

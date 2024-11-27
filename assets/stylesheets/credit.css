@@ -4,6 +4,12 @@
   grid-template-columns: 280px 280px 280px 280px;
 }
 
+@media (max-width: 768px) {
+  #credit-imgs {
+    grid-template-columns: 245px 245px;
+  }
+}
+
 .credit-img-card {
   height: 15.5rem;
   padding: 5px;

@@ -1,6 +1,6 @@
 <?php
 
-include './services/ConnectionManager.php';
+require_once 'ConnectionManager.php';
 
 /**
  * Courses data management class.
@@ -33,6 +33,9 @@ class CoursesManager
         return static::$instance;
     }
 
+    /**
+     * Load courses from Database.
+     */
     private function load()
     {
         $conn = null;
@@ -61,6 +64,22 @@ class CoursesManager
             $conn = null;
             $stmt = null;
         }
+    }
+
+    /**
+     * Get courses by id.
+     * 
+     * @return array Courses.
+     */
+    public function getCoursesById($id)
+    {
+        $array = [];
+        foreach ($this->courses as $course) {
+            if ($course['trainingID'] === $id) {
+                array_push($array, $course);
+            }
+        }
+        return $array;
     }
 
     /**

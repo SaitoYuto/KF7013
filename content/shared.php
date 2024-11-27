@@ -1,12 +1,21 @@
 <?php
 
+require_once './constants/Message.php';
+
 /**
  * Stringify header HTML.
  * 
+ * @param string $isLogin Whether the user has logged in or not.
  * @return string
  */
-function stringifyHeaderHtml()
+function stringifyHeaderHtml($isLogin)
 {
+    $messages = ['Welcome to TechSpec!', 'Boost your skills!', 'Enjoy our courses!'];
+    $message = $messages[rand(0, count($messages) - 1)];
+    $userAuthHtml =
+        $isLogin ? "<p id='welcome-msg'>$message</p>" :
+        "<a class='base-link' href='./signup.php'>Sign Up</a> <a class='base-link' href='./login.php'>Login</a>";
+
     return <<< Header
         <header class="flex-row-center-space-between">
         <div class="flex-row">
@@ -92,8 +101,7 @@ function stringifyHeaderHtml()
             </div>
         </div>
     <div>
-        <a class="base-link" href="./auth.php?tab=signup">Sign Up</a>
-        <a class="base-link" href="./auth.php?tab=login">Login</a>
+    $userAuthHtml
     </div>
     </header>
     Header;
@@ -104,8 +112,20 @@ function stringifyHeaderHtml()
  * 
  * @return string
  */
-function stringifySidebarHtml()
+function stringifySidebarHtml($isLogin)
 {
+    $account =
+        $isLogin
+        ? "<li>
+                <a class='flex-row' href='./account.php'>
+                    <img
+                        class='list-icon'
+                        src='../assets/images/icon_account.png'
+                        alt='Account Icon' />
+                        <p>Account</p>
+                </a>
+            </li>"
+        : "";
     return <<< Sidebar
         <aside>
             <div id="hamburger-menu" class="list-icon">
@@ -142,6 +162,7 @@ function stringifySidebarHtml()
                             <p>Credit</p>
                         </a>
                     </li>
+                    $account
                     <li>
                         <a
                         class="flex-row"
@@ -190,7 +211,7 @@ function stringifyFooterHtml()
                 </ul>
             </div>
             <div class="flex-row-center-space-between">
-                <a class="flex-row" href="./index.html">
+                <a class="flex-row" href="./index.php">
                     <img
                     class="logo-img"
                     src="../assets/images/logo-light.png"
@@ -201,4 +222,33 @@ function stringifyFooterHtml()
             </div>
         </footer>
     Footer;
+}
+
+
+/**
+ * Stringify alert HTML.
+ * 
+ * @param string $classSelector
+ * @param string $message
+ * @return string
+ */
+function stringifyAlertHtml($classSelector, $message)
+{
+    $ALERT_TYPES = [
+        'info' => Message::TITLE_INFO,
+        'error' => Message::TITLE_ERROR
+    ];
+    if (!isset($ALERT_TYPES[$classSelector])) {
+        return "";
+    }
+    $title = $ALERT_TYPES[$classSelector];
+    $escapedMessage =  htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+    return <<< Alert
+        <div id="alert-card" class="$classSelector" role="alert">
+            <div id="alert-content">
+            <h3>$title</h3>
+            <p>$escapedMessage</p>
+            </div>
+        </div>
+    Alert;
 }

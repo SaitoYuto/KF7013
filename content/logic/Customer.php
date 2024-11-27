@@ -1,7 +1,6 @@
 <?php
 
-include './services/ConnectionManager.php';
-
+require_once 'ConnectionManager.php';
 
 /**
  * Customer service class.
@@ -90,16 +89,25 @@ class Customer
     private $dob;
 
     /**
+     * A list of whitelisted column names for use in dynamic SQL queries.
+     * 
+     * @var array
+     */
+    const WHITE_LIST = [self::COL_CUSTOMER_ID, self::COL_EMAIL];
+
+    /**
      * Constructor.
      * 
+     * @param string $id Customer's id.
      * @param string $forename Customer's forename.
-     * @param string $forename Customer's surname.
-     * @param string $forename Customer's email.
-     * @param string $forename Customer's password.
-     * @param string $forename Customer's date of birth.
+     * @param string $surname Customer's surname.
+     * @param string $email Customer's email.
+     * @param string $rawPassword Customer's password.
+     * @param string $dob Customer's date of birth.
      */
-    function __construct($forename, $surname, $email, $rawPassword, $dob)
+    function __construct($id, $forename, $surname, $email, $rawPassword, $dob)
     {
+        $this->id = $id;
         $this->forename = $forename;
         $this->surname = $surname;
         $this->email = $email;
@@ -117,9 +125,44 @@ class Customer
         return $this->id;
     }
 
+    /**
+     * Get customer's forename
+     * 
+     * @return string Customer's forename.
+     */
     public function getForename()
     {
         return $this->forename;
+    }
+
+    /**
+     * Get customer's surname.
+     * 
+     * @return string Customer's surname.
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * Get customer's email.
+     * 
+     * @return string Customer's email.
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get customer's date of birth.
+     * 
+     * @return string Customer's date of birth.
+     */
+    public function getDob()
+    {
+        return $this->dob;
     }
 
     /**
@@ -135,6 +178,7 @@ class Customer
         $this->setPasswordHash($customer[self::COL_PASSWORD_HASH]);
         $this->setForename($customer[self::COL_FORENAME]);
         $this->setSurname($customer[self::COL_SURNAME]);
+        $this->setEmail($customer[self::COL_EMAIL]);
         $this->setDob($customer[self::COL_DOB]);
     }
 
@@ -176,6 +220,19 @@ class Customer
     private function setSurname($surname)
     {
         $this->surname = $surname;
+    }
+
+    /**
+     * Set customer's email.
+     *
+     * @param string $email Customer's email.
+     */
+    private function setEmail($email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception(Message::INVALID_EMAIL_FORMAT);
+        }
+        $this->email = $email;
     }
 
     /**
@@ -235,7 +292,7 @@ class Customer
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
             if (mysqli_num_rows($result) > 0) {
-                throw new Exception("An account with this email address already exists.");
+                throw new Exception(Message::DUPLICATE_EMAIL);
             } else {
                 return false;
             }
@@ -291,13 +348,40 @@ class Customer
     }
 
     /**
-     * Load customer data by email into memory.
-     * 
-     * @param string $email Customer's email.
-     * @return void
-     * @throws Exception
+     * Load customer date by customer ID.
      */
-    private function loadCustomerByEmail()
+    public function loadCustomerById()
+    {
+        if (!$this->id) {
+            throw new Exception(Message::REQUIRED_CUSTOMER_ID);
+        }
+        $sql = "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth
+        FROM customers
+        WHERE customerID = ? LIMIT 1";
+        $this->loadCustomerByField($sql, $this->id);
+    }
+
+    /**
+     * Load customer date by email.
+     */
+    public function loadCustomerByEmail()
+    {
+        if (!$this->email) {
+            throw new Exception(Message::REQUIRED_EMAIL);
+        }
+        $sql = "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth
+        FROM customers
+        WHERE customer_email = ? LIMIT 1";
+        $this->loadCustomerByField($sql, $this->email);
+    }
+
+    /**
+     * Load customer date by specific field.
+     * 
+     * @param string $sql SQL. 
+     * @param string $value Value.
+     */
+    private function loadCustomerByField($sql, $value)
     {
         $conn = null;
         $stmt = null;
@@ -306,16 +390,12 @@ class Customer
             if (!$conn) {
                 throw new Exception(Message::DB_CONNECTION_FAIL);
             }
-            $stmt = mysqli_prepare(
-                $conn,
-                "SELECT customerID, password_hash, customer_forename, customer_surname, date_of_birth 
-            FROM customers 
-            WHERE customer_email = ? LIMIT 1"
-            );
+
+            $stmt = mysqli_prepare($conn, $sql);
             if (!$stmt) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
             }
-            if (!mysqli_stmt_bind_param($stmt, "s", $this->email)) {
+            if (!mysqli_stmt_bind_param($stmt, "s", $value)) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
             if (!mysqli_stmt_execute($stmt)) {
