@@ -1,6 +1,6 @@
 <?php
 
-require_once './logic/ConnectionManager.php';
+require_once 'ConnectionManager.php';
 
 /**
  * Customer service class.
