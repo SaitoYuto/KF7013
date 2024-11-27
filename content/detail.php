@@ -3,11 +3,14 @@ session_start();
 require_once './logic/CoursesManager.php';
 
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
-$courseId = $_GET['courseId'];
-if (!$courseId) {
-  // Not allowed display detail page without GET parameter.
-  header('Location: courses.php');
+$courseId = filter_input(INPUT_GET, 'courseId', FILTER_VALIDATE_INT);
+if ($courseId === false || $courseId === null) {
+  http_response_code(400); // Bad Request
+  header('Location: courses.php?error=invalid_course_id');
+  exit();
 }
+
+$course = null;
 $coursesManager = CoursesManager::getInstance();
 foreach ($coursesManager->getCoursesById(intval($courseId)) as $course) {
   $title = $course['title'];
@@ -18,6 +21,10 @@ foreach ($coursesManager->getCoursesById(intval($courseId)) as $course) {
   $imagePath = $course['session_imagepath'];
   $imageAlt = $course['image_alt'];
   $lecturer = $course['lecturer'];
+}
+if (!$course) {
+  header('Location courses.php?error=not_found_course');
+  exit();
 }
 ?>
 
@@ -51,13 +58,13 @@ foreach ($coursesManager->getCoursesById(intval($courseId)) as $course) {
         <div id="course-detail">
           <div id="course-main">
             <h3>
-              <?php echo $title ?>
+              <?php echo htmlspecialchars($title) ?>
             </h3>
             <h4>
               Description
             </h4>
             <p>
-              <?php echo $desc ?>
+              <?php echo htmlspecialchars($desc) ?>
             </p>
             <?php if ($isLogin): ?>
               <a href="./booking.php" class="base-link">Book Now</a>
@@ -65,7 +72,15 @@ foreach ($coursesManager->getCoursesById(intval($courseId)) as $course) {
               <a href="./signup.php" class="base-link">Register Now</a>
             <?php endif; ?>
           </div>
-          <?php echo "<img src='../assets/images/{$imagePath}' alt='{$imageAlt}'>" ?>
+          +<?php
+            $imagePath = htmlspecialchars("../assets/images/" . $imagePath);
+            $imageAlt = htmlspecialchars($imageAlt);
+            if (file_exists($imagePath)) {
+              echo "<img src='{$imagePath}' alt='{$imageAlt}'>";
+            } else {
+              echo "<img src='../assets/images/default.png' alt='Default course image'>";
+            }
+            ?>
         </div>
         <div id="course-info-cards">
           <div class="course-info-card">
@@ -78,12 +93,12 @@ foreach ($coursesManager->getCoursesById(intval($courseId)) as $course) {
             <img
               src="../assets/images/icon_tag.png"
               alt="Course Price Image" />
-            <p class="<?php echo $discountPrice ? 'original-price' : ''; ?>">
-              £<?php echo $price ?>
+            <p class="<?php echo ($discountPrice && $discountPrice < $price) ? 'original-price' : ''; ?>">
+              £<?php echo number_format((float)$price, 2) ?>
             </p>
-            <?php if ($discountPrice): ?>
+            <?php if ($discountPrice && $discountPrice < $price): ?>
               <p class="discount-price">
-                £<?php echo $discountPrice ?>
+                £<?php echo number_format((float)$discountPrice, 2) ?>
               </p>
             <?php endif; ?>
           </div>

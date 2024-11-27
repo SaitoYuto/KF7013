@@ -92,12 +92,12 @@ class Customer
     /**
      * Constructor.
      * 
-     * @param string $forename Customer's id.
+     * @param string $id Customer's id.
      * @param string $forename Customer's forename.
-     * @param string $forename Customer's surname.
-     * @param string $forename Customer's email.
-     * @param string $forename Customer's password.
-     * @param string $forename Customer's date of birth.
+     * @param string $surname Customer's surname.
+     * @param string $email Customer's email.
+     * @param string $rawPassword Customer's password.
+     * @param string $dob Customer's date of birth.
      */
     function __construct($id, $forename, $surname, $email, $rawPassword, $dob)
     {
@@ -339,57 +339,35 @@ class Customer
     }
 
     /**
-     * Load customer data by email into memory.
-     * 
-     * @param string $email Customer's email.
-     * @return void
-     * @throws Exception
-     */
-    private function loadCustomerByEmail()
-    {
-        $conn = null;
-        $stmt = null;
-        try {
-            $conn = ConnectionManager::getInstance()->getConnection();
-            if (!$conn) {
-                throw new Exception(Message::DB_CONNECTION_FAIL);
-            }
-            $stmt = mysqli_prepare(
-                $conn,
-                "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth 
-            FROM customers 
-            WHERE customer_email = ? LIMIT 1"
-            );
-            if (!$stmt) {
-                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
-            }
-            if (!mysqli_stmt_bind_param($stmt, "s", $this->email)) {
-                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
-            }
-            if (!mysqli_stmt_execute($stmt)) {
-                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
-            }
-            $result = mysqli_stmt_get_result($stmt);
-            if (!$result) {
-                throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
-            }
-            if ($customer = mysqli_fetch_assoc($result)) {
-                $this->setCustomer($customer);
-            }
-        } finally {
-            $conn = null;
-            $stmt = null;
-        }
-    }
-
-    /**
-     * Load customer data by id into memory.
-     * 
-     * @return void
-     * @throws Exception
+     * Load customer date by customer ID.
      */
     public function loadCustomerById()
     {
+        if (!$this->id) {
+            throw new Exception("Customer ID is required");
+        }
+        $this->loadCustomerByField("customerID", $this->id);
+    }
+
+    /**
+     * Load customer date by email.
+     */
+    public function loadCustomerByEmail()
+    {
+        if (!$this->email) {
+            throw new Exception("Email is required");
+        }
+        $this->loadCustomerByField("customer_email", $this->email);
+    }
+
+    /**
+     * Load customer date by specific field.
+     * 
+     * @param string $field Field name. 
+     * @param string $value Value.
+     */
+    private function loadCustomerByField($field, $value)
+    {
         $conn = null;
         $stmt = null;
         try {
@@ -399,14 +377,15 @@ class Customer
             }
             $stmt = mysqli_prepare(
                 $conn,
-                "SELECT customerID, password_hash, customer_forename, customer_surname, customer_email, date_of_birth 
-            FROM customers 
-            WHERE customerID = ? LIMIT 1"
+                "SELECT customerID, password_hash, customer_forename, customer_surname, 
+                            customer_email, date_of_birth 
+                FROM customers 
+                WHERE " . $field . " = ? LIMIT 1"
             );
             if (!$stmt) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
             }
-            if (!mysqli_stmt_bind_param($stmt, "s", $this->id)) {
+            if (!mysqli_stmt_bind_param($stmt, "s", $value)) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
             if (!mysqli_stmt_execute($stmt)) {

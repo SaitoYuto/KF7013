@@ -21,7 +21,7 @@ if ($isLogin) {
   $userDob = $customer->getDob();
 } else {
   // Not allowed display account page without login
-  header('Location: index.php');
+  header('Location: index.php?error=unauthorize');
 }
 
 $error = '';

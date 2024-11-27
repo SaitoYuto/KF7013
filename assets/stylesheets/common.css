@@ -298,7 +298,9 @@ footer > div:first-child > ul {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  width: 350%;
+  width: 35%;
+  role: "alert";
+  animation: slideIn 0.3s ease-out;
 }
 
 #alert-card > #alert-content > h3 {
@@ -336,11 +338,23 @@ footer > div:first-child > ul {
   color: #f63b3b;
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* Common CSS for Form */
 #form-wrapper {
   display: flex;
   flex-wrap: wrap;
-  width: 35vw;
+  width: min(35vw, 90%);
+  min-width: 280px;
 }
 
 #form-label {
@@ -379,6 +393,21 @@ footer > div:first-child > ul {
   padding: 8px;
   border: 1px solid #d3d3d3;
   border-radius: 8px;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.form-row > input:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.form-row > input:invalid {
+  border-color: #f63b3b;
+}
+
+.form-row > input:valid {
+  border-color: #3b82f6;
 }
 
 form > .base-btn {

@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Stringify header HTML.
  * 
@@ -232,18 +234,20 @@ function stringifyFooterHtml()
  */
 function stringifyAlertHtml($classSelector, $message)
 {
-    if ($classSelector === 'info') {
-        $title = "Info";
-    } else if ($classSelector === 'error') {
-        $title = "Error";
-    } else {
-        return  "";
+    $ALERT_TYPES = [
+        'info' => Message::INFO_TITLE,
+        'error' => Message::ERROR_TITLE
+    ];
+    if (!isset($ALERT_TYPES[$classSelector])) {
+        return "";
     }
+    $title = $ALERT_TYPES[$classSelector];
+    $escapedMessage =  htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
     return <<< Alert
         <div id="alert-card" class="$classSelector">
             <div id="alert-content">
             <h3>$title</h3>
-            <p>$message</p>
+            <p>$escapedMessage</p>
             </div>
         </div>
     Alert;

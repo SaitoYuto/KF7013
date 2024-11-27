@@ -16,4 +16,6 @@ class Message
     const INVALID_REQUEST = "Client Invalid Request.";
     const INTERNAL_SERVER_ERROR = "Internal Server Error.";
     const AFTER_SIGNUP = "After signing up successfully, automatically redirect to the login page.";
+    const INFO_TITLE = "INFO";
+    const ERROR_TITLE = "ERROR";
 }
