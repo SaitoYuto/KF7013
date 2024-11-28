@@ -354,6 +354,42 @@ footer > div:first-child > ul {
   }
 }
 
+#booking-details {
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+#booking-details table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+#booking-details thead tr {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#booking-details th {
+  padding: 12px 15px;
+}
+
+#booking-details tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#booking-details tbody tr:hover {
+  background-color: #d3d3d3;
+}
+
+#booking-details td {
+  padding: 10px 15px;
+}
+
 /* Common CSS for Form */
 #form-wrapper {
   display: flex;
@@ -413,6 +449,19 @@ footer > div:first-child > ul {
 
 .form-row > input:valid {
   border-color: #3b82f6;
+}
+
+.form-row > input.disabled {
+  background-color: #f9f9f9;
+  border-color: #f9f9f9;
+}
+.form-row > input:focus.disabled {
+  border-color: #f9f9f9;
+  box-shadow: initial;
+}
+
+.form-row > textarea {
+  resize: none;
 }
 
 form > .base-btn {

@@ -57,8 +57,8 @@ class CoursesManager
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
 
-            while ($row = mysqli_fetch_assoc($result)) {
-                $this->courses[] = $row;
+            while ($course = mysqli_fetch_assoc($result)) {
+                $this->courses[] = $course;
             }
         } finally {
             $conn = null;

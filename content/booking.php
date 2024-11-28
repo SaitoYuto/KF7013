@@ -66,10 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('book', $_POST)) {
     href="../assets/stylesheets/common.css"
     rel="stylesheet"
     type="text/css" />
-  <link
-    href="../assets/stylesheets/booking.css"
-    rel="stylesheet"
-    type="text/css" />
 </head>
 
 <body>
@@ -83,36 +79,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('book', $_POST)) {
         <form action="" method="post">
           <div class="form-row">
             <label>Course Title</label>
-            <input type="text" name="courseTitle" value="<?= $title ?>" readonly>
+            <input class="disabled" type="text" value="<?= $title ?>" readonly>
           </div>
           <div class="form-row">
             <label>Price</label>
             <?php if ($discountPrice): ?>
-              <input type="text" name="coursePrice" value="<?= $discountPrice ?>" readonly>
+              <input class="disabled" type="text" value="<?= $discountPrice ?>" readonly>
             <?php else: ?>
-              <input type="text" name="coursePrice" value="<?= $price ?>" readonly>
+              <input class="disabled" type="text" value="<?= $price ?>" readonly>
             <?php endif; ?>
           </div>
           <div class="form-row">
             <label>Course Date</label>
-            <input type="text" name="courseDate" value="<?= $date ?>" readonly>
+            <input class="disabled" type="text" value="<?= $date ?>" readonly>
           </div>
           <div class="form-row">
             <label>Lecturer</label>
-            <input type="text" name="courseDate" value="<?= $lecturer ?>" readonly>
+            <input class="disabled" type="text" value="<?= $lecturer ?>" readonly>
           </div>
           <div class="form-row">
             <label for="note">Note</label>
-            <textarea
-              id="note"
-              name="note"
-              rows="5"></textarea>
+            <textarea id="note" name="note" rows="5"></textarea>
           </div>
-          <button
-            type="submit"
-            class="base-btn"
-            name="book"
-            value="book">
+          <button type="submit" class="base-btn" name="book" value="book">
             Book
           </button>
         </form>
