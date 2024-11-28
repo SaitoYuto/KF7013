@@ -297,12 +297,8 @@ class Customer
                 return false;
             }
         } finally {
-            if ($stmt) {
-                mysqli_stmt_close($stmt);
-            }
-            if ($conn) {
-                mysqli_close($conn);
-            }
+            $conn = null;
+            $stmt = null;
         }
     }
 
@@ -335,12 +331,8 @@ class Customer
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
         } finally {
-            if ($stmt) {
-                mysqli_stmt_close($stmt);
-            }
-            if ($conn) {
-                mysqli_close($conn);
-            }
+            $conn = null;
+            $stmt = null;
         }
     }
 
@@ -417,12 +409,8 @@ class Customer
                 $this->setCustomer($customer);
             }
         } finally {
-            if ($stmt) {
-                mysqli_stmt_close($stmt);
-            }
-            if ($conn) {
-                mysqli_close($conn);
-            }
+            $conn = null;
+            $stmt = null;
         }
     }
 }
