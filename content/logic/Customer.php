@@ -297,8 +297,12 @@ class Customer
                 return false;
             }
         } finally {
-            $conn = null;
-            $stmt = null;
+            if ($stmt) {
+                mysqli_stmt_close($stmt);
+            }
+            if ($conn) {
+                mysqli_close($conn);
+            }
         }
     }
 
@@ -413,8 +417,12 @@ class Customer
                 $this->setCustomer($customer);
             }
         } finally {
-            $conn = null;
-            $stmt = null;
+            if ($stmt) {
+                mysqli_stmt_close($stmt);
+            }
+            if ($conn) {
+                mysqli_close($conn);
+            }
         }
     }
 }

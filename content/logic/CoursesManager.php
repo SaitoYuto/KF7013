@@ -61,8 +61,12 @@ class CoursesManager
                 $this->courses[] = $row;
             }
         } finally {
-            $conn = null;
-            $stmt = null;
+            if ($stmt) {
+                mysqli_stmt_close($stmt);
+            }
+            if ($conn) {
+                mysqli_close($conn);
+            }
         }
     }
 
