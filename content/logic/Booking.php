@@ -1,30 +1,55 @@
 <?php
 
 /**
- * Customer service class.
+ * Booking service class.
  * 
  * @author Yuto Saito / w23042608
  */
 class Booking
 {
+    /**
+     * Training ID.
+     * 
+     * @var int
+     */
     private $trainingId;
 
+    /**
+     * Customer ID.
+     * 
+     * @var int
+     */
     private $customerId;
 
+    /**
+     * Student count.
+     * 
+     * @var int
+     */
     private $studentCount;
 
+    /**
+     * Total cost.
+     * 
+     * @var float
+     */
     private $totalCost;
 
+    /**
+     * Booking note.
+     * 
+     * @var string|null
+     */
     private $note;
 
     /**
      * Constructor.
      * 
-     * @param string $trainingId Training ID.
-     * @param string $customerId Customer ID.
-     * @param string $studentCount Student count.
-     * @param string $totalCost Total cost.
-     * @param string $note Booking note.
+     * @param int $trainingId Training ID.
+     * @param int $customerId Customer ID.
+     * @param int $studentCount Student count.
+     * @param float $totalCost Total cost.
+     * @param string|null $note Booking note.
      */
     function __construct($trainingId, $customerId, $studentCount, $totalCost, $note)
     {
@@ -65,8 +90,12 @@ class Booking
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
         } finally {
-            $conn = null;
-            $stmt = null;
+            if ($stmt) {
+                mysqli_stmt_close($stmt);
+            }
+            if ($conn) {
+                mysqli_close($conn);
+            }
         }
     }
 }
