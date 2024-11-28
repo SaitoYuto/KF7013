@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+require_once 'shared.php';
 require_once './constants/Message.php';
 require_once './logic/Customer.php';
 require_once './util/RequestUtil.php';
@@ -54,17 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('login', $_POST)) 
 </head>
 
 <body>
-  <?php require_once 'shared.php';
-  echo stringifyHeaderHtml($isLogin);
-  ?>
+  <?php echo stringifyHeaderHtml($isLogin); ?>
   <div class="main-wrapper">
-    <?php require_once 'shared.php';
-    echo stringifySidebarHtml($isLogin);
-    ?>
+    <?php echo stringifySidebarHtml($isLogin); ?>
     <main>
-      <?php require_once 'shared.php';
-      echo stringifyAlertHtml($alertSelector, $message);
-      ?>
+      <?php echo stringifyAlertHtml($alertSelector, $message); ?>
       <div id="form-wrapper">
         <label id="form-label">Login</label>
         <form action="" method="post">
@@ -99,8 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('login', $_POST)) 
       </div>
     </main>
   </div>
-  <?php require_once 'shared.php';
-  echo stringifyFooterHtml(); ?>
+  <?php echo stringifyFooterHtml(); ?>
 </body>
 
 </html>

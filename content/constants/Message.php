@@ -8,6 +8,7 @@
 class Message
 {
     const AFTER_SIGNUP = "After signing up successfully, automatically redirect to the login page.";
+    const BOOKING_COMPLETE = "Thank you for booking. You can check the details on your account page.";
     const DB_CONNECTION_FAIL = "Database connection failed.";
     const DEFAULT_ERROR = "Unexpected Error";
     const DUPLICATE_EMAIL = "An account with this email address already exists.";
