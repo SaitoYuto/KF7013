@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once 'shared.php';
+require_once './logic/CoursesManager.php';
 require_once './util/RequestUtil.php';
 
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
@@ -32,22 +34,15 @@ if ($error) {
 </head>
 
 <body>
-  <?php require_once 'shared.php';
-  echo stringifyHeaderHtml($isLogin);
-  ?>
+  <?php echo stringifyHeaderHtml($isLogin); ?>
   <div class="main-wrapper">
-    <?php require_once 'shared.php';
-    echo stringifySidebarHtml($isLogin);
-    ?>
+    <?php echo stringifySidebarHtml($isLogin); ?>
     <main>
-      <?php require_once 'shared.php';
-      echo stringifyAlertHtml($alertSelector, $message);
-      ?>
+      <?php echo stringifyAlertHtml($alertSelector, $message); ?>
       <h2 id="recommendation">Recommendation to You</h2>
       <div class="courses-wrapper">
         <?php
         try {
-          require_once './logic/CoursesManager.php';
           $coursesManager = CoursesManager::getInstance();
           foreach ($coursesManager->getCoursesByCategory("Recommendation") as $recommendation) {
             $priceTag
@@ -77,7 +72,6 @@ if ($error) {
       <div class="courses-wrapper">
         <?php
         try {
-          require_once './logic/CoursesManager.php';
           $coursesManager = CoursesManager::getInstance();
           foreach ($coursesManager->getCoursesByCategory("New") as $new) {
             $priceTag
@@ -107,7 +101,6 @@ if ($error) {
       <div class="courses-wrapper">
         <?php
         try {
-          require_once './logic/CoursesManager.php';
           $coursesManager = CoursesManager::getInstance();
           foreach ($coursesManager->getCoursesByCategory("Enrolled") as $enrolled) {
             $priceTag
@@ -135,8 +128,7 @@ if ($error) {
       </div>
     </main>
   </div>
-  <?php require_once 'shared.php';
-  echo stringifyFooterHtml(); ?>
+  <?php echo stringifyFooterHtml(); ?>
 </body>
 
 </html>

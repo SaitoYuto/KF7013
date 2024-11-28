@@ -70,9 +70,9 @@ if (!$course) {
               <?php echo htmlspecialchars($desc) ?>
             </p>
             <?php if ($isLogin): ?>
-              <a href="./booking.php" class="base-link">Book Now</a>
+              <a href=<?php echo "./booking.php?courseId={$courseId}" ?> class="base-link">Book Now</a>
             <?php else: ?>
-              <a href="./signup.php" class="base-link">Register Now</a>
+              <a href="./signup.php" class="base-link">Sign Up Now</a>
             <?php endif; ?>
           </div>
           <?php

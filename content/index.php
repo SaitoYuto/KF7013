@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'shared.php';
 $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
 ?>
 
@@ -23,13 +24,9 @@ $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
 </head>
 
 <body>
-  <?php require_once 'shared.php';
-  echo stringifyHeaderHtml($isLogin);
-  ?>
+  <?php echo stringifyHeaderHtml($isLogin); ?>
   <div class="main-wrapper">
-    <?php require_once 'shared.php';
-    echo stringifySidebarHtml($isLogin);
-    ?>
+    <?php echo stringifySidebarHtml($isLogin); ?>
     <main>
       <h1>Level up your skills with the highest quality courses</h1>
       <div id="main-imgs" class="flex-row-center">
@@ -87,8 +84,7 @@ $isLogin = isset($_SESSION['id']) && isset($_SESSION['name']);
       </div>
     </main>
   </div>
-  <?php require_once 'shared.php';
-  echo stringifyFooterHtml(); ?>
+  <?php echo stringifyFooterHtml(); ?>
 </body>
 
 </html>

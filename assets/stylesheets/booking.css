@@ -1,0 +1,11 @@
+input {
+  background-color: #f9f9f9 !important;
+  border-color: #f9f9f9 !important;
+}
+input:focus {
+  border-color: #f9f9f9 !important;
+  box-shadow: initial !important;
+}
+textarea {
+  resize: none;
+}

@@ -22,6 +22,7 @@ if ($isLogin) {
 } else {
   // Not allowed display account page without login
   header('Location: login.php?error=unauthorize');
+  exit();
 }
 
 $error = '';
