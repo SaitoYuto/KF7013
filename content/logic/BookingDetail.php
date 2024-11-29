@@ -50,7 +50,7 @@ class BookingDetail
             if (!$stmt) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
             }
-            if (!mysqli_stmt_bind_param($stmt, "i", $this->customerId,)) {
+            if (!mysqli_stmt_bind_param($stmt, "i", $this->customerId)) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
             if (!mysqli_stmt_execute($stmt)) {

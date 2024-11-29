@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('book', $_POST)) {
           </div>
           <div class="form-row">
             <label for="note">Note</label>
-            <textarea id="note" name="note" rows="5"></textarea>
+            <textarea id="note" name="note" rows="5" maxlength="1000"></textarea>
           </div>
           <button type="submit" class="base-btn" name="book" value="book">
             Book

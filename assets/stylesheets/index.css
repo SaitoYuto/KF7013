@@ -2,14 +2,6 @@
   width: 80%;
 }
 
-@media (max-width: 768px) {
-  #main-imgs {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-}
-
 #learn-img {
   background-image: url("../images/main-learn.png");
 }
@@ -25,12 +17,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-}
-
-@media (max-width: 768px) {
-  .main-img {
-    width: 70%;
-  }
 }
 
 .main-img > h3 {
@@ -49,12 +35,6 @@
   display: grid;
   gap: 40px 40px;
   grid-template-columns: 200px 200px 200px 200px;
-}
-
-@media (max-width: 768px) {
-  #topic-wrapper {
-    grid-template-columns: 200px 200px;
-  }
 }
 
 .topic-card {
@@ -86,5 +66,19 @@
   100% {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  #main-imgs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .main-img {
+    width: 70%;
+  }
+  #topic-wrapper {
+    grid-template-columns: 200px 200px;
   }
 }

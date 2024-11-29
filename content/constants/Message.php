@@ -18,6 +18,7 @@ class Message
     const INVALID_COURSE_ID = "Invalid course ID.";
     const LOGIN_FAILURE = "The email address or password you provided may be incorrect.";
     const NOT_FOUND_COURSE = "Not found course.";
+    const NOT_BOOKING_INFO = "There is no booking information.";
     const SIGNUP_FAILURE = "Sign-up failed. Please try again later.";
     const SQL_PREPARE_FAIL = "Failed to prepare SQL statement: ";
     const SQL_EXEC_FAIL = "Failed to execute SQL statement: ";

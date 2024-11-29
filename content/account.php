@@ -49,19 +49,19 @@ if ($isLogin) {
         <form action="./logout.php" method="post">
           <div class="form-row">
             <label>Forename</label>
-            <input class="disabled" value=<?php echo $userForename ?> readonly />
+            <input class="disabled" value=<?php echo htmlspecialchars($userForename, ENT_QUOTES, 'UTF-8') ?> readonly />
           </div>
           <div class="form-row">
             <label>Surname</label>
-            <input class="disabled" value=<?php echo $userSurname ?> readonly />
+            <input class="disabled" value=<?php echo htmlspecialchars($userSurname, ENT_QUOTES, 'UTF-8')  ?> readonly />
           </div>
           <div class="form-row">
             <label>Email</label>
-            <input class="disabled" value=<?php echo $userEmail ?> readonly />
+            <input class="disabled" value=<?php echo htmlspecialchars($userEmail, ENT_QUOTES, 'UTF-8')  ?> readonly />
           </div>
           <div class="form-row">
             <label>Date of Birth</label>
-            <input class="disabled" value=<?php echo $userDob ?> readonly
+            <input class="disabled" value=<?php echo htmlspecialchars($userDob, ENT_QUOTES, 'UTF-8')  ?> readonly
               min='1940-01-01'
               max="<?php echo date('Y-m-d', strtotime('-18 years')); ?>" />
           </div>
@@ -80,16 +80,21 @@ if ($isLogin) {
           </tr>
         </thead>
         <tbody>
-          <?php
-          foreach ($details as $detail):
-            echo '<tr>';
-            echo "<td>{$detail['title']}</td>";
-            echo "<td>{$detail['session_date']}</td>";
-            echo "<td>{$detail['lecturer']}</td>";
-            echo "<td>{$detail['total_booking_cost']}</td>";
-            echo "<td>{$detail['booking_notes']}</td>";
-            echo '</tr>';
-          endforeach;
+          <?php if (empty($details)): ?>
+            <tr>
+              <td colspan="5"><?php echo Message::NOT_BOOKING_INFO ?></td>
+            </tr>
+          <?php else:
+            foreach ($details as $detail):
+              echo '<tr>';
+              echo "<td>{$detail['title']}</td>";
+              echo "<td>{$detail['session_date']}</td>";
+              echo "<td>{$detail['lecturer']}</td>";
+              echo "<td>{$detail['total_booking_cost']}</td>";
+              echo "<td>{$detail['booking_notes']}</td>";
+              echo '</tr>';
+            endforeach;
+          endif;
           ?>
         </tbody>
       </table>

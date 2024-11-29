@@ -97,6 +97,12 @@ class Booking
         }
     }
 
+    /**
+     * Fetch booking details by specific customer ID.
+     * 
+     * @return array
+     * @throws Exception
+     */
     public function fetchBookingDetail()
     {
         $conn = null;
@@ -108,14 +114,15 @@ class Booking
             }
             $stmt = mysqli_prepare(
                 $conn,
-                "SELECT t.title, t.description, t.session_date, t.lecturer, t.session_imagepath, t.image_alt, b.total_booking_cost, b.booking_notes
+                "SELECT t.title, t.session_date, t.lecturer, b.total_booking_cost, b.booking_notes
                 FROM `booking` AS b INNER JOIN customers AS c ON b.customerID = c.customerID INNER JOIN training_sessions AS t ON b.trainingID = t.trainingID 
-                WHERE c.customerID = ?"
+                WHERE c.customerID = ? 
+                ORDER BY t.session_date DESC"
             );
             if (!$stmt) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_error($conn));
             }
-            if (!mysqli_stmt_bind_param($stmt, "i", $this->customerId,)) {
+            if (!mysqli_stmt_bind_param($stmt, "i", $this->customerId)) {
                 throw new Exception(Message::INTERNAL_SERVER_ERROR . mysqli_stmt_error($stmt));
             }
             if (!mysqli_stmt_execute($stmt)) {
