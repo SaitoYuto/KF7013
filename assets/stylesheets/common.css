@@ -357,10 +357,11 @@ footer > div:first-child > ul {
 
 #booking-details {
   max-width: 800px;
+  margin: 0 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background: #ffffff;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 #booking-details table {
@@ -472,4 +473,12 @@ footer > div:first-child > ul {
 form > .base-btn {
   margin-top: 20px;
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  #booking-details th,
+  #booking-details td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
 }
