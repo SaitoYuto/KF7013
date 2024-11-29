@@ -27,7 +27,7 @@ aside {
 }
 
 aside:hover {
-  width: 15%;
+  width: 20%;
 }
 
 aside:hover #sidebar-list p {
@@ -47,7 +47,7 @@ aside:hover > #hamburger-menu > span:last-child {
 }
 
 aside:hover + main {
-  width: calc(100% - 15%);
+  width: calc(100% - 20%);
 }
 
 main {
@@ -126,7 +126,7 @@ footer > div:first-child > ul {
 }
 
 #search-bar {
-  width: 300px;
+  width: 280px;
   height: 35px;
   padding-right: 40px;
   padding-left: 15px;
@@ -145,14 +145,14 @@ footer > div:first-child > ul {
 }
 
 #search-bar:focus {
-  width: 450px;
+  width: 380px;
 }
 
 #search-candidates {
   display: none;
   position: absolute;
   z-index: 100;
-  width: 450px;
+  max-width: 380px;
   background-color: #ffffff;
   font-weight: 600;
   box-shadow: 0 2px 4px 0 #00000026, 0 2px 8px 0 #00000026;
@@ -176,6 +176,7 @@ footer > div:first-child > ul {
 }
 
 #welcome-msg {
+  margin-left: 10px;
   font-weight: bold;
   letter-spacing: 1px;
 }
@@ -354,6 +355,43 @@ footer > div:first-child > ul {
   }
 }
 
+#booking-details {
+  max-width: 800px;
+  margin: 0 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  overflow-x: auto;
+}
+
+#booking-details table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+#booking-details thead tr {
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#booking-details th {
+  padding: 12px 15px;
+}
+
+#booking-details tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#booking-details tbody tr:hover {
+  background-color: #d3d3d3;
+}
+
+#booking-details td {
+  padding: 10px 15px;
+}
+
 /* Common CSS for Form */
 #form-wrapper {
   display: flex;
@@ -415,7 +453,32 @@ footer > div:first-child > ul {
   border-color: #3b82f6;
 }
 
+.form-row > input.disabled {
+  background-color: #f9f9f9;
+  border-color: #f9f9f9;
+}
+.form-row > input:focus.disabled {
+  border-color: #f9f9f9;
+  box-shadow: initial;
+  cursor: not-allowed;
+  color: #666666;
+}
+
+.form-row > textarea {
+  min-height: 100px;
+  max-height: 300px;
+  resize: vertical;
+}
+
 form > .base-btn {
   margin-top: 20px;
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  #booking-details th,
+  #booking-details td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
 }

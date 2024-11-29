@@ -1,13 +1,7 @@
 #credit-imgs {
   display: grid;
-  gap: 15px 15px;
-  grid-template-columns: 280px 280px 280px 280px;
-}
-
-@media (max-width: 768px) {
-  #credit-imgs {
-    grid-template-columns: 245px 245px;
-  }
+  gap: 10px 10px;
+  grid-template-columns: 250px 250px 250px 250px;
 }
 
 .credit-img-card {
@@ -41,4 +35,10 @@
 .credit-img-card:hover {
   transition: box-shadow 0.5s ease;
   box-shadow: 1px 1px 1px 1px #d3d3d3;
+}
+
+@media (max-width: 768px) {
+  #credit-imgs {
+    grid-template-columns: 245px 245px;
+  }
 }

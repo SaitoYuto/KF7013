@@ -22,10 +22,6 @@ if (!$isLogin) {
     href="../assets/stylesheets/common.css"
     rel="stylesheet"
     type="text/css" />
-  <link
-    href="../assets/stylesheets/booking.css"
-    rel="stylesheet"
-    type="text/css" />
 </head>
 
 <body>

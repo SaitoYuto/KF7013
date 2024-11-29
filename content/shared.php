@@ -10,7 +10,14 @@ require_once './constants/Message.php';
  */
 function stringifyHeaderHtml($isLogin)
 {
-    $messages = ['Welcome to TechSpec!', 'Boost your skills!', 'Enjoy our courses!'];
+    $messages = [
+        'Welcome to TechSpec!',
+        'Boost your skills!',
+        'Enjoy our courses!',
+        'Learn at your own pace!',
+        'Discover new possibilities!',
+        'Achieve your goals with us!',
+    ];
     $message = $messages[rand(0, count($messages) - 1)];
     $userAuthHtml =
         $isLogin ? "<p id='welcome-msg'>$message</p>" :
