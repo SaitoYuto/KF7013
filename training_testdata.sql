@@ -40,7 +40,7 @@ VALUES (
     , 20
     , NULL
     , 'course_ai.png'
-    , 'AI Course'
+    , 'AI Course Thumbnail'
     , 'John Anderson'
     , 'Recommendation'
 ) 
@@ -52,7 +52,7 @@ VALUES (
     , 25
     , NULL
     , 'course_iot.png'
-    , 'IoT Course'
+    , 'IoT Course Thumbnail'
     , 'Emily Davis'
     , 'Recommendation'
 ) 
@@ -64,7 +64,7 @@ VALUES (
     , 28
     , NULL
     , 'course_cloud.png'
-    , 'Cloud Course'
+    , 'Cloud Course Thumbnail'
     , 'Amelia Edwards'
     , 'Recommendation'
 ) 
@@ -76,7 +76,7 @@ VALUES (
     , 35
     , 30
     , 'course_machine_learning.png'
-    , 'Machine Learning Course'
+    , 'Machine Learning Course Thumbnail'
     , 'Max Fukumoto'
     , 'Recommendation'
 ) 
@@ -88,7 +88,7 @@ VALUES (
     , 35
     , NULL
     , 'course_bigdata.png'
-    , 'BigData Learning Course'
+    , 'BigData Learning Course Thumbnail'
     , 'Jacob Foster'
     , 'Recommendation'
 ) 
@@ -100,7 +100,7 @@ VALUES (
     , 35
     , NULL
     , 'course_algorithm.png'
-    , 'Algorithm Course'
+    , 'Algorithm Course Thumbnail'
     , 'Olivia Carter'
     , 'New'
 ) 
@@ -112,7 +112,7 @@ VALUES (
     , 30
     , NULL
     , 'course_ios.png'
-    , 'iOS Course'
+    , 'iOS Course Thumbnail'
     , 'Jing Wenqi Wang'
     , 'New'
 ) 
@@ -124,7 +124,7 @@ VALUES (
     , 30
     , NULL
     , 'course_android.png'
-    , 'Android Course'
+    , 'Android Course Thumbnail'
     , 'Ethan Parker'
     , 'New'
 ) 
@@ -136,7 +136,7 @@ VALUES (
     , 40
     , NULL
     , 'course_datavisualize.png'
-    , 'Data Visualization Course'
+    , 'Data Visualization Course Thumbnail'
     , 'Sophia Anderson'
     , 'New'
 ) 
@@ -148,7 +148,7 @@ VALUES (
     , 35
     , NULL
     , 'course_blockchain.png'
-    , 'Blockchain Course'
+    , 'Blockchain Course Thumbnail'
     , 'Liam Thompson'
     , 'New'
 ) 
@@ -172,7 +172,7 @@ VALUES (
     , 30
     , 25
     , 'course_python.png'
-    , 'Python Course'
+    , 'Python Course Thumbnail'
     , 'Noah Turner'
     , 'Enrolled'
 ) 
@@ -184,7 +184,7 @@ VALUES (
     , 38
     , NULL
     , 'course_web.png'
-    , 'Web Development Course'
+    , 'Web Development Course Thumbnail'
     , 'Ava Robinson'
     , 'Enrolled'
 ) 
@@ -196,7 +196,7 @@ VALUES (
     , 40
     , NULL
     , 'course_streaming.png'
-    , 'Streaming Course'
+    , 'Streaming Course Thumbnail'
     , 'Mason Hughes'
     , 'Enrolled'
 ) 
@@ -208,7 +208,7 @@ VALUES (
     , 35
     , NULL
     , 'course_ui.png'
-    , 'User Interface Course'
+    , 'User Interface Course Thumbnail'
     , 'Karthik Natarajan'
     , 'Enrolled'
 ) 
@@ -220,7 +220,7 @@ VALUES (
     , 30
     , NULL
     , 'course_api.png'
-    , 'Web API Course'
+    , 'Web API Course Thumbnail'
     , 'Charlotte Scott'
     , 'Enrolled'
 );
