@@ -170,18 +170,6 @@ function stringifySidebarHtml($isLogin)
                         </a>
                     </li>
                     $account
-                    <li>
-                        <a
-                        class="flex-row"
-                        href="../assets/wireframe.pdf"
-                        target="_blank">
-                            <img
-                                class="list-icon"
-                                src="../assets/images/icon_wireframe.png"
-                                alt="WireFrame Icon" />
-                            <p>WireFrame</p>
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </aside>
