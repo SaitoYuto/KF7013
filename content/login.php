@@ -13,6 +13,7 @@ if ($isLogin) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('login', $_POST)) {
+  // Login Request
   $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
   $password = filter_input(INPUT_POST, 'password');
   $customer = new Customer(null, null, null, $email, $password, null);
@@ -33,9 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('login', $_POST)) 
     http_response_code(500);
   }
 } else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  // GET Request
   $alertSelector = array_key_exists('error', $_GET) ? 'error' : "";
   $message = array_key_exists('error', $_GET) ? RequestUtil::getErrorMessageByParam($_GET['error']) : "";
 } else {
+  // Unexpected Request
   $alertSelector = 'error';
   $message = Message::INVALID_REQUEST;
 }

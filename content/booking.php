@@ -79,23 +79,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists('book', $_POST)) {
         <form action="" method="post">
           <div class="form-row">
             <label>Course Title</label>
-            <input class="disabled" type="text" value="<?= $title ?>" readonly>
+            <input class="disabled" type="text" value="<?php echo htmlspecialchars($title, ENT_QUOTES, 'UTF-8'); ?>" readonly>
           </div>
           <div class="form-row">
             <label>Price</label>
             <?php if ($discountPrice): ?>
-              <input class="disabled" type="text" value="<?= $discountPrice ?>" readonly>
+              <input class="disabled" type="text" value="<?php echo htmlspecialchars($discountPrice, ENT_QUOTES, 'UTF-8') ?>" readonly>
             <?php else: ?>
-              <input class="disabled" type="text" value="<?= $price ?>" readonly>
+              <input class="disabled" type="text" value="<?php echo htmlspecialchars($price, ENT_QUOTES, 'UTF-8') ?>" readonly>
             <?php endif; ?>
           </div>
           <div class="form-row">
             <label>Course Date</label>
-            <input class="disabled" type="text" value="<?= $date ?>" readonly>
+            <input class="disabled" type="text" value="<?php echo htmlspecialchars($date, ENT_QUOTES, 'UTF-8') ?>" readonly>
           </div>
           <div class="form-row">
             <label>Lecturer</label>
-            <input class="disabled" type="text" value="<?= $lecturer ?>" readonly>
+            <input class="disabled" type="text" value="<?php echo htmlspecialchars($lecturer, ENT_QUOTES, 'UTF-8') ?>" readonly>
           </div>
           <div class="form-row">
             <label for="note">Note</label>

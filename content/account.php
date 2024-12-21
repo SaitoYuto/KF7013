@@ -49,19 +49,19 @@ if ($isLogin) {
         <form action="./logout.php" method="post">
           <div class="form-row">
             <label>Forename</label>
-            <input class="disabled" value=<?php echo htmlspecialchars($userForename, ENT_QUOTES, 'UTF-8') ?> readonly />
+            <input class="disabled" value="<?php echo htmlspecialchars($userForename, ENT_QUOTES, 'UTF-8') ?>" readonly />
           </div>
           <div class="form-row">
             <label>Surname</label>
-            <input class="disabled" value=<?php echo htmlspecialchars($userSurname, ENT_QUOTES, 'UTF-8')  ?> readonly />
+            <input class="disabled" value="<?php echo htmlspecialchars($userSurname, ENT_QUOTES, 'UTF-8') ?>" readonly />
           </div>
           <div class="form-row">
             <label>Email</label>
-            <input class="disabled" value=<?php echo htmlspecialchars($userEmail, ENT_QUOTES, 'UTF-8')  ?> readonly />
+            <input class="disabled" value="<?php echo htmlspecialchars($userEmail, ENT_QUOTES, 'UTF-8') ?>" readonly />
           </div>
           <div class="form-row">
             <label>Date of Birth</label>
-            <input class="disabled" value=<?php echo htmlspecialchars($userDob, ENT_QUOTES, 'UTF-8')  ?> readonly
+            <input class="disabled" value="<?php echo htmlspecialchars($userDob, ENT_QUOTES, 'UTF-8') ?>" readonly
               min='1940-01-01'
               max="<?php echo date('Y-m-d', strtotime('-18 years')); ?>" />
           </div>
